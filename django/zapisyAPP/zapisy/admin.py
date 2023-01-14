@@ -13,4 +13,3 @@ admin.site.register(zapisy)
 admin.site.register(klient)
 admin.site.register(wyniki)
 admin.site.register(dystans)
-
