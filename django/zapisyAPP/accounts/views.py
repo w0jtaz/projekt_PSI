@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.request import Request
@@ -7,6 +9,11 @@ from api.serializers import *
 from rest_framework.views import APIView
 
 # Create your views here.
+@login_required
+def index(request):
+    data = User.objects.all()
+    return render(request, 'app/index.html', {'data': data})
+
 class GetUsersView(APIView):
     serializer_class = user_Serializer
     def get_users(self):

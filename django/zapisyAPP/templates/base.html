@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+	<title>SuperTime - zapisy za zawody sportowe</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<script type="text/javascript" src="{% static 'js/get_date.js' %}"></script>
+</head>
+<body onload="startclock()">
+
+	<div id="container">
+		<div id="logo">
+			SuperTime <br>Zapisy na zawody sportowe
+		</div>
+    </div>
+{% block content %}
+{% endblock %}
+</body>
+</html>
