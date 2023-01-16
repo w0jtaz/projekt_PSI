@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import zawodnik, zapisy, klient, wydarzenie
+from .models import zawodnik, zapisy, klient, wydarzenie, wyniki
 
 
 class wydarzenieSerializer(serializers.HyperlinkedModelSerializer):
@@ -9,10 +9,13 @@ class wydarzenieSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class zapisySerializer(serializers.HyperlinkedModelSerializer):
-    id_zawodnik = serializers.SlugRelatedField(slug_field='id', queryset=zawodnik.objects.all())
+    id_zawodnik = serializers.SlugRelatedField(
+        slug_field='id', queryset=zawodnik.objects.all())
+
     class Meta:
         model = zapisy
         fields = ("url", "id", "id_zawodnik", "zawody", "dystans")
+
 
 class klientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -39,3 +42,10 @@ class zawodnikSerializer(serializers.HyperlinkedModelSerializer):
             "email",
             "miasto",
         ]
+
+
+class wynikiSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = wyniki
+        fields = ("id", "zawodnik", "zawody",
+                  "dystans", "czas", "miejsce_open")
