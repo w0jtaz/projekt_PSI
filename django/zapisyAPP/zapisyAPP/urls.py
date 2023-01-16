@@ -17,18 +17,15 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import path, include
-from accounts.views import index
+from django.shortcuts import render
+
 
 def redirect_view(request):
-    if request.user.is_authenticated:
-        return redirect('app.index')
-    else:
-        return redirect('login')
+    return render(request, 'app/index.html')
+
 
 urlpatterns = [
-    #path("", redirect_view, name='home'),
-    path("", login_required(index), name="index"),
+    path("", redirect_view, name='index'),
     path("api/", include("zapisy.urls")),
-    path("auth", include("accounts.urls")),
     path("admin/", admin.site.urls),
 ]
