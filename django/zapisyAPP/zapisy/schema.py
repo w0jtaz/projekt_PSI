@@ -1,11 +1,20 @@
 import graphene
+from django.forms import Field
 from graphene_django import DjangoObjectType
-from .models import zawodnik, klient
+from .models import zawodnik, klient, zapisy, wydarzenie
+from django.db.models import Q
+from graphene_django import DjangoObjectType
+from graphene import ObjectType, String, List
 
 
 class KlientType(DjangoObjectType):
     class Meta:
         model = klient
+
+
+class ZawodnikType:
+    class Meta:
+        model = zawodnik
 
 
 class Query(graphene.ObjectType):

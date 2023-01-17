@@ -68,6 +68,7 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
         'rest_framework.filters.SearchFilter',
     ),
+    'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler'
     # "DEFAULT_PERMISSION_CLASSES":(
     #     "rest_framework.permissions.IsAuthenticated",
     # )

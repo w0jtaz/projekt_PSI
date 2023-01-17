@@ -12,9 +12,11 @@ body {
 .container_zawodnik > a {
     margin-bottom: 10px;
 }
-.login_container{
+
+.login_container {
     margin-top: 100px;
 }
+
 .card {
     font-color: black;
 }
@@ -101,7 +103,7 @@ div > #logo {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(209,209,209,80%);
+    background-color: rgba(209, 209, 209, 80%);
 }
 
 #topbar {

@@ -1,7 +1,10 @@
 from django import forms
 
+
 class LoginForm(forms.Form):
     pass
+
+
 class ZawodnikForm(forms.Form):
     imie = forms.CharField()
     nazwisko = forms.CharField()

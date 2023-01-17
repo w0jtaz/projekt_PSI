@@ -3,13 +3,14 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework import generics, status
 from django.contrib.auth import authenticate
-from api.serializers import *
+
+from zapisy.serializers import *
 from rest_framework.views import APIView
 
 
 # Create your views here.
 class GetUsersView(APIView):
-    serializer_class = user_Serializer
+    serializer_class = sign_up_Serializer
 
     def get_users(self):
         user = User.objects.all()

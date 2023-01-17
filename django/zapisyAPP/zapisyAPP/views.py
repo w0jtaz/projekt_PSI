@@ -17,6 +17,7 @@ from zapisy.serializers import klientSerializer, zapisySerializer, zawodnikSeria
 def redirect_view(request):
     return render(request, 'app/index.html')
 
+
 def login_view(request):
     if request.method == "POST":
         email = request.POST.get('email')
@@ -27,13 +28,16 @@ def login_view(request):
             login(request, user)
             return redirect('index')
         else:
-            #messages.info(request, 'Login lub hasło nieprawidłowe.')
+            # messages.info(request, 'Login lub hasło nieprawidłowe.')
             return render(request, 'app/login.html', {'error': 'Login lub hasło nieprawidłowe.'})
     return render(request, 'app/login.html', {})
+
 
 def logout_view(request):
     auth_logout(request)
     return redirect('login')
+
+
 def zapisy_view(request):
     zawodnik_list = zawodnik.objects.all()
     wydarzenie_list = wydarzenie.objects.all()
@@ -140,8 +144,10 @@ class zapisy_new_view(TemplateView):
             return redirect('zapisy')
         else:
             form = ZapisyForm()
-            context = {'form': form, 'zawodnik_list': self.zawodnik_list, 'zawody_list': self.zawody_list,'zapisy_list': self.zapisy_list, 'errors': serializer.errors}
+            context = {'form': form, 'zawodnik_list': self.zawodnik_list, 'zawody_list': self.zawody_list,
+                       'zapisy_list': self.zapisy_list, 'errors': serializer.errors}
             return render(request, 'app/zapisy_new.html', context)
+
 
 def zawodnik_view(request, parameter=''):
     print(f'Parameter: {parameter}')
