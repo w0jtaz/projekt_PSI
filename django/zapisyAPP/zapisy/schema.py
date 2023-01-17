@@ -38,8 +38,8 @@ class CreateKlient(graphene.Mutation):
 
     _klient = graphene.Field(KlientType)
 
-    def mutate(self, info, id, nazwa, email, telefon, adres):
-        _klient = klient.objects.create(id=id, nazwa=nazwa, email=email, telefon=telefon, adres=adres)
+        def mutate(self, info, nazwa, email, telefon, adres):
+        _klient = klient.objects.create(nazwa=nazwa, email=email, telefon=telefon, adres=adres)
         return CreateKlient(klient=_klient)
 
 
