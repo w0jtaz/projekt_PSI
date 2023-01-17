@@ -1,10 +1,14 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+from accounts.models import CustomUserManager
+
 
 # Create your models here.
 
 
 class zawodnik(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     imie = models.CharField(max_length=45, blank=False, null=False)
     nazwisko = models.CharField(max_length=45, blank=False, null=False)
     klub = models.CharField(max_length=45, blank=False, null=False)
@@ -17,7 +21,7 @@ class zawodnik(models.Model):
 
 
 class klient(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nazwa = models.CharField(max_length=45, blank=False, null=False)
     email = models.CharField(max_length=45, blank=False, null=False)
     telefon = models.CharField(max_length=9, blank=False, null=False)
@@ -28,7 +32,7 @@ class klient(models.Model):
 
 
 class wydarzenie(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nazwa = models.CharField(max_length=45, blank=False, null=False)
     organizator = models.ForeignKey(
         klient, on_delete=models.CASCADE, blank=False, null=False
@@ -41,7 +45,7 @@ class wydarzenie(models.Model):
 
 
 class zapisy(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     id_zawodnik = models.ForeignKey(
         zawodnik, on_delete=models.CASCADE, blank=False, null=False
     )
@@ -55,7 +59,7 @@ class zapisy(models.Model):
 
 
 class wyniki(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     zawodnik = models.ForeignKey(
         zawodnik, on_delete=models.CASCADE, blank=False, null=False
     )
@@ -68,7 +72,7 @@ class wyniki(models.Model):
 
 
 class dystans(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     dystans = models.CharField(max_length=45, blank=False, null=False)
 
     def __str__(self):

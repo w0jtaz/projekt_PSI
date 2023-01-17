@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1>Klient</h1><a href="{% url 'klient_new' %}"
+                              class="btn btn-primary btn-lg {% if not user.is_authenticated %}disabled{% endif %}"
+                              role="button" aria-disabled="true"><img class="icons"
+                                                                      src="{% static 'media/person.svg' %}"
+                                                                      alt="Email"/> Nowy Klient</a>
+
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-light">
+                <tr>
+                    <th>Klient</th>
+                    <th>Nazwa</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Adres</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for klient in klient_list %}
+                    <tr>
+                        <td><img class="icons" src="{% static 'media/bussines_2.png' %}" alt="Telefon"/></td>
+                        <td>{{ klient.nazwa }}</td>
+                        <td>{{ klient.email }}</td>
+                        <td>+48 {{ klient.telefon }}</td>
+                        <td>{{ klient.adres }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

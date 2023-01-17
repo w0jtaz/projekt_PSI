@@ -6,13 +6,17 @@ from django.contrib.auth import authenticate
 from api.serializers import *
 from rest_framework.views import APIView
 
+
 # Create your views here.
 class GetUsersView(APIView):
     serializer_class = user_Serializer
+
     def get_users(self):
         user = User.objects.all()
         serializer = self.serializer_class(instance=user, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
 class SignUpView(generics.GenericAPIView):
     serializer_class = sign_up_Serializer
 
@@ -30,6 +34,7 @@ class SignUpView(generics.GenericAPIView):
 
             return Response(data=response, status=status.HTTP_201_CREATED)
         return Response(data=serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
 
 class LoginView(APIView):
     def post(self, request: Request):
@@ -54,4 +59,3 @@ class LoginView(APIView):
         }
 
         return Response(data=content, status=status.HTTP_200_OK)
-

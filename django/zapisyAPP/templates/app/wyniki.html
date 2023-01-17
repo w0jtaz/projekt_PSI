@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
     <div class="container">
         <div class="row justify-content-center">
-            <h1>Zapisy</h1><a href="{% url 'zapisy_new' %}"
+            <h1>Wyniki</h1><a href="{% url 'wyniki_new' %}"
                               class="btn btn-primary btn-lg {% if not user.is_authenticated %}disabled{% endif %}"
                               role="button" aria-disabled="true"><img class="icons"
                                                                       src="{% static 'media/person.svg' %}"
-                                                                      alt="Email"/> Nowy zapis</a>
+                                                                      alt="Email"/> Nowy Wynik</a>
 
             <table class="table table-striped">
                 <thead>
@@ -15,15 +16,18 @@
                     <th scope="col">Zawodnik</th>
                     <th scope="col">Zawody</th>
                     <th scope="col">Dystans</th>
+                    <th scope="col">Czas</th>
+                    <th scope="col">Miejsce (Open)</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for zapis in zapisy_list %}
+                {% for wyniki in wyniki_list %}
                     <tr>
-                        <td><a href="../zawodnik/{{ zapis.id_zawodnik.pk }}">
-                            {{ zapis.id_zawodnik.imie }}{{ zapis.id_zawodnik.nazwisko }}</a></td>
-                        <td><a href="{% url 'wydarzenie-detail' zapis.id_zawodnik.pk %}">{{ zapis.zawody }}</a></td>
-                        <td>{{ zapis.dystans }}</td>
+                        <td>{{ wyniki.zawodnik }}</td>
+                        <td>{{ wyniki.zawody }}</td>
+                        <td>{{ wyniki.dystans }}</td>
+                        <td>{{ wyniki.czas }}</td>
+                        <td>{{ wyniki.miejsce_open }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -32,4 +36,3 @@
     </div>
 
 {% endblock %}
-

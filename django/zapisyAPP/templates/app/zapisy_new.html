@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form search border_form">
+        <form method="post">
+            {% csrf_token %}
+        {{ form_as_p }}
+            <div class="form-group">
+                <label for="id_zawodnik">Zawodnik</label>
+                <select class="form-control" id="id_zawodnik" name="id_zawodnik">
+                    {% for zawodnik in zawodnik_list %}
+                        <option value="{{ zawodnik.id }}">{{ zawodnik.imie }} {{ zawodnik.nazwisko }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        <div class="form-group">
+                <label for="zawody">Zawody</label>
+                <select class="form-control" id="zawody" name="zawody">
+                    {% for zawody in zawody_list %}
+                        <option value="{{ zawody.id }}">{{ zawody.nazwa }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="termin">Dystans</label>
+                <input type="number" class="form-control" id="dystans" name="dystans" placeholder="Dystans">
+            </div>
+            <button type="submit" class="btn btn-primary">Dodaj</button>
+        </form>
+        {{ errors }}
+    </div>
+{% endblock %}

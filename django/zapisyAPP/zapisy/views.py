@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
+from django_filters import AllValuesFilter, NumberFilter
+from django_filters.rest_framework import FilterSet
 from rest_framework.reverse import reverse
 from rest_framework import status, generics
 from rest_framework.decorators import APIView
@@ -8,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from .serializers import zapisySerializer, zawodnikSerializer, klientSerializer, wydarzenieSerializer, wynikiSerializer
 from zapisy.models import zapisy, zawodnik, klient, wydarzenie, wyniki
+from .forms import ZapisyForm
 
 
 class ZawodnikList(generics.ListCreateAPIView):
@@ -16,7 +20,7 @@ class ZawodnikList(generics.ListCreateAPIView):
     name = 'zawodnik-list'
     filterset_fields = ['id']
     search_fields = ['id']
-    ordering_fields = ['id']
+    ordering_fields = ['nazwisko']
 
 
 class ZawodnikDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -30,7 +34,7 @@ class KlientList(generics.ListCreateAPIView):
     serializer_class = klientSerializer
     name = 'klient-list'
     filterset_fields = ['id']
-    search_fields = ['id']
+    search_fields = ['nazwa', 'email', 'telefon']
     ordering_fields = ['id']
 
 
@@ -44,6 +48,9 @@ class WydarzenieList(generics.ListCreateAPIView):
     queryset = wydarzenie.objects.all()
     serializer_class = wydarzenieSerializer
     name = 'wydarzenie-list'
+    filterset_fields = ['id']
+    search_fields = ['nazwa', 'organizator__email', 'miasto']
+    ordering_fields = ['id']
 
 
 class WydarzenieDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -52,10 +59,21 @@ class WydarzenieDetail(generics.RetrieveUpdateDestroyAPIView):
     name = 'wydarzenie-detail'
 
 
+class ZapisyFilter(FilterSet):
+    min_dystans = NumberFilter(field_name='dystans', lookup_expr='gte')
+    max_dystans = NumberFilter(field_name='dystans', lookup_expr='lte')
+    zawodnik_nazwisko = AllValuesFilter(field_name='zawody__nazwisko')
+
+    class Meta:
+        model = zapisy
+        fields = ['min_dystans', 'max_dystans', 'zawodnik_nazwisko']
+
+
 class ZapisyList(generics.ListCreateAPIView):
     queryset = zapisy.objects.all()
     serializer_class = zapisySerializer
     name = 'zapisy-list'
+    filter_class = ZapisyFilter
 
 
 class ZapisyDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -74,9 +92,9 @@ class WynikiDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = wyniki.objects.all()
     serializer_class = wynikiSerializer
     name = 'wyniki-detail'
+
+
 #
-
-
 class ApiRoot(generics.GenericAPIView):
     name = 'api-root'
 

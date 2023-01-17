@@ -4,7 +4,7 @@ from django.contrib import admin
 
 urlpatterns = [
     path("zawodnik", views.ZawodnikList.as_view(), name=views.ZawodnikList.name),
-    path("zawodnik/<int:pk>", views.ZawodnikDetail.as_view(), name=views.ZawodnikDetail.name),
+    path("zawodnik/<int:pk>", views.ZawodnikList.as_view(), name=views.ZawodnikDetail.name),
     path("klient", views.KlientList.as_view(), name=views.KlientList.name),
     path("klient/<int:pk>", views.KlientDetail.as_view(), name=views.KlientDetail.name),
     path("wydarzenie", views.WydarzenieList.as_view(), name=views.WydarzenieList.name),

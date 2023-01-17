@@ -18,6 +18,8 @@ class wydarzenieSerializer(serializers.HyperlinkedModelSerializer):
 
 class zapisySerializer(serializers.HyperlinkedModelSerializer):
     id_zawodnik = serializers.SlugRelatedField(slug_field='id', queryset=zawodnik.objects.all())
+    zawody = serializers.SlugRelatedField(slug_field='id', queryset=wydarzenie.objects.all())
+
     class Meta:
         model = zapisy
         fields = ("url", "id", "id_zawodnik", "zawody", "dystans")
@@ -33,7 +35,7 @@ class zapisySerializer(serializers.HyperlinkedModelSerializer):
             raise serializers.ValidationError("Dystans musi być liczbą.")
         return value
 
-class klientSerializer(serializers.HyperlinkedModelSerializer):
+class klientSerializer(serializers.ModelSerializer):
     class Meta:
         model = klient
         fields = (
@@ -44,6 +46,7 @@ class klientSerializer(serializers.HyperlinkedModelSerializer):
             "telefon",
             "adres",
         )
+
     def validate_telefon(self, value):
         if not re.match(r"^\d{9}$", value):
             raise serializers.ValidationError("Numer telefonu jest niepoprawny.")
@@ -79,6 +82,7 @@ class zawodnikSerializer(serializers.HyperlinkedModelSerializer):
             raise serializers.ValidationError("Adres email jest niepoprawny.")
         return value
 
+
 class wynikiSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = wyniki
@@ -104,4 +108,3 @@ class wynikiSerializer(serializers.HyperlinkedModelSerializer):
         if value < 0:
             raise serializers.ValidationError("Czas nie może być ujemny.")
         return value
-

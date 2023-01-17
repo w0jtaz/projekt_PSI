@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="form search border_form">
+        <form method="post">
+            {% csrf_token %}
+            {{ form_as_p }}
+            <div class="form-group">
+                <label for="imie">Imie</label>
+                <input type="text" class="form-control" id="imie" name="imie" required>
+            </div>
+            <div class="form-group">
+                <label for="nazwisko">Nazwisko</label>
+                <input type="text" class="form-control" id="nazwisko" name="nazwisko" required>
+            </div>
+            <div class="form-group">
+                <label for="klub">Klub</label>
+                <input type="text" class="form-control" id="klub" name="klub" required>
+            </div>
+            <div class="form-group">
+                <label for="telefon">Telefon</label>
+                <input type="text" class="form-control" id="telefon" name="telefon" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="miasto">Miasto</label>
+                <input type="text" class="form-control" id="miasto" name="miasto" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {{ errors }}
+
+
+    </div>
+
+{% endblock %}
