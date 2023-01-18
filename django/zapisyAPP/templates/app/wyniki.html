@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1>Wyniki</h1><a href="{% url 'wyniki_new' %}"
+                              class="btn btn-primary btn-lg {% if not user.is_authenticated %}disabled{% endif %}"
+                              role="button" aria-disabled="true"><img class="icons"
+                                                                      src="{% static 'media/person.svg' %}"
+                                                                      alt="Email"/> Nowy Wynik</a>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Zawodnik</th>
+                    <th scope="col">Zawody</th>
+                    <th scope="col">Dystans</th>
+                    <th scope="col">Czas</th>
+                    <th scope="col">Miejsce (Open)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for wyniki in wyniki_list %}
+                    <tr>
+                        <td>{{ wyniki.zawodnik }}</td>
+                        <td>{{ wyniki.zawody }}</td>
+                        <td>{{ wyniki.dystans }}</td>
+                        <td>{{ wyniki.czas }}</td>
+                        <td>{{ wyniki.miejsce_open }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
